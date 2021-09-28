@@ -19,9 +19,12 @@ var computeService = &BaseServiceDefinition{
 	Attributes: []ServiceAttributeDefinition{
 		NewServiceSettings(),
 		NewServiceDomain(computeAttributes),
-		NewServiceHealthCheck(computeAttributes),
+		newFakeLoggingHandler(computeAttributes, "healthcheck"),
 		NewServiceBackend(computeAttributes),
-		NewServiceDirector(computeAttributes),
+		newFakeLoggingHandler(computeAttributes, "director"),
+		NewServiceDictionary(computeAttributes),
+		NewServicePackage(computeAttributes),
+		NewServiceLoggingDatadog(computeAttributes),
 		newFakeLoggingHandler(computeAttributes, "s3logging"),
 		newFakeLoggingHandler(computeAttributes, "papertrail"),
 		newFakeLoggingHandler(computeAttributes, "sumologic"),
@@ -35,7 +38,6 @@ var computeService = &BaseServiceDefinition{
 		newFakeLoggingHandler(computeAttributes, "logging_elasticsearch"),
 		newFakeLoggingHandler(computeAttributes, "logging_ftp"),
 		newFakeLoggingHandler(computeAttributes, "logging_sftp"),
-		NewServiceLoggingDatadog(computeAttributes),
 		newFakeLoggingHandler(computeAttributes, "logging_loggly"),
 		newFakeLoggingHandler(computeAttributes, "logging_googlepubsub"),
 		newFakeLoggingHandler(computeAttributes, "logging_scalyr"),
@@ -48,8 +50,6 @@ var computeService = &BaseServiceDefinition{
 		newFakeLoggingHandler(computeAttributes, "logging_digitalocean"),
 		newFakeLoggingHandler(computeAttributes, "logging_cloudfiles"),
 		newFakeLoggingHandler(computeAttributes, "logging_kinesis"),
-		NewServiceDictionary(computeAttributes),
-		NewServicePackage(computeAttributes),
 	},
 }
 
